@@ -1,4 +1,7 @@
-  File "/Users/saaim/Code/pyrun/testfile.py", line 7
-    result = concatenate_strings string1, string2)
-                                                 ^
-SyntaxError: unmatched ')'
+Traceback (most recent call last):
+  File "/Users/saaim/Code/pyrun/testfile.py", line 23, in <module>
+    main()
+  File "/Users/saaim/Code/pyrun/testfile.py", line 16, in main
+    print("First number:", data[5])  # Error: Index out of range
+                           ~~~~^^^
+IndexError: list index out of range

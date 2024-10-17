@@ -105,8 +105,13 @@ def colorize_error_with_syntax(code):
     """
     return highlight(code, PythonLexer(), TerminalFormatter()).strip()
 
+def underline_error(error):
+    with open(readfile, "r") as file:
+        lines = file.readlines()
+        return (lines[-2].rstrip())
 
-def display_error_stack(errors, filename):
+def display_error_stack(errors, filename, underline):
+    test = 2
     print(f"\033[47m\033[91m ERR! \033[0m\033[91m Error on Line \033[33m{errors[-1][0]}\033[91m Detected\033[0m\033[33m\033[0m\n\033[97m{errors[-1][-1]}\n")
     
     # Read the entire file content into a list of lines
@@ -121,6 +126,7 @@ def display_error_stack(errors, filename):
         return f"{line_number:>{max_line_number_length}}"
 
     for error in errors:
+        test -= 1
         try:
             # Validate that the first element of the error is a valid number
             if error[0].isdigit():
@@ -142,7 +148,10 @@ def display_error_stack(errors, filename):
             # Display current line with error indicator
             curr_line_space = len(lines[curr_line]) - len(lines[curr_line].lstrip())
             print(f'\033[91m->  {format_line_number(curr_line + 1)} | \033[0m{((" ") * (curr_line_space) )}{colorize_error_with_syntax(lines[curr_line])}')
-
+            if underline and test < 1:
+                #if test < 1:
+                    underline_position = len(f'{format_line_number(curr_line + 1)} | ') + curr_line_space  # Adjust for line number and space
+                    print(f'\033[91m{" " * underline_position}\033[91m{underline}')
             # Display next line if it exists
             post_line_space = len(lines[post_line]) - len(lines[post_line].lstrip())
             if post_line > curr_line:
@@ -235,7 +244,9 @@ def main():
                 exit(0)
             else:
                 errors = read_errors(sys.argv[1])
-                display_error_stack(errors,sys.argv[1])
+                #print(errors)
+                underline = underline_error(errors)
+                display_error_stack(errors,sys.argv[1],underline)
                 exit(1)
         else:
             print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mFile Doesnt Exist\033[0m\nThe file \033[4m"{file_to_run}"\033[0m doesnt exist\033[0m.')
