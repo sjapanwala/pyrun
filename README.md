@@ -1,5 +1,7 @@
 # Pyrun
 > A Python addon that makes the interpreter experienct better
+
+# <center> [Welcome](#what-is-pyrun) | [Installation](#installation) |  [Documentation](#documentation) | [Help](#help-me)
 <p align="center">
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
@@ -7,8 +9,6 @@
 <img src="https://img.shields.io/badge/Version-0.1 BETA-red">
 </p>
 
-
-# <center> [Welcome](#what-is-pyrun) | [Installation](#installation) |  [Documentation](#documentation) | [Help](#help-me)
 
 <img src="https://github.com/user-attachments/assets/dbcf13f1-66a8-4d3c-b55f-fe48f96181d7">
 <div style="display: flex; justify-content: space-between; width: 100%;">
