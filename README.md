@@ -1,10 +1,11 @@
 # Pyrun
 > A Python addon that makes the interpreter experienct better
-
+<p align="center">
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
 <img src="https://img.shields.io/badge/python3-yellow">
 <img src="https://img.shields.io/badge/Version-0.1 BETA-red">
+</p>
 
 
 # <center> [Welcome](#what-is-pyrun) | [Installation](#installation) |  [Documentation](#documentation) | [Help](#help-me)
