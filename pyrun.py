@@ -13,7 +13,7 @@ from pygments.formatters import TerminalFormatter
 # global vars
 allowed_files = [".py"]
 readfile = ".pyout"
-allowed_args = ["help","-ns","--ds","--rt","--cb"]
+allowed_args = ["help","--ns","--ds","--rt","--cb"]
 python_startvar="python3"
 
 def get_errors(filename):
@@ -152,6 +152,40 @@ def display_error_stack(errors, filename):
             # Handle cases where error[0] is not a valid number or index out of bounds
             print(f"Error processing the error stack: {e}")
 
+def runtestcases(filename,testcasefile):
+    """
+    runs test cases, test cases should be added to a text file
+    caselist[i][0] = case num
+    caselist[i][1] = case input
+    caselist[i][2] = case output
+    """
+    caselist = []
+    casenums = 0
+    inputs = []
+    outputs = []
+    with open(testcasefile, "r") as testcases:
+        for lines in testcases:
+            lines = lines.strip()
+            if lines == '***CASE START***':
+                casenums += 1
+            if lines[0:5] == 'INPUT':
+                for i in lines[8:]:
+                    if i.isalnum() == True:
+                        inputs.append(i)
+            if lines[0:6] == 'OUTPUT':
+                for j in lines[9:]:
+                    if j.isalnum() == True:
+                        outputs.append(j)
+        caselist = [casenums, inputs, outputs]
+        print(caselist)
+        return caselist
+
+
+
+        
+
+        
+
 def help_func():
     print("""
 \033[94m    ____        \033[93m____            
@@ -202,9 +236,16 @@ def main():
             else:
                 errors = read_errors(sys.argv[1])
                 display_error_stack(errors,sys.argv[1])
+                exit(1)
         else:
             print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mFile Doesnt Exist\033[0m\nThe file \033[4m"{file_to_run}"\033[0m doesnt exist\033[0m.')
             exit(1)
+    elif sys.argv[1] in allowed_args:
+        pass
+    else:
+        print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[92mArg Too Ambigious\033[0m\n')
+
+        
 
 
 

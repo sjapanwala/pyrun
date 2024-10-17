@@ -1,0 +1,4 @@
+  File "/Users/saaim/Code/pyrun/testfile.py", line 7
+    result = concatenate_strings string1, string2)
+                                                 ^
+SyntaxError: unmatched ')'
