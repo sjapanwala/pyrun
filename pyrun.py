@@ -13,8 +13,9 @@ from pygments.formatters import TerminalFormatter
 # global vars
 allowed_files = [".py"]
 readfile = ".pyout"
-allowed_args = ["help","--ns","--ds","--rt","--cb"]
+allowed_args = ["help","--ns","--ds","--rt","--cb", "--v"]
 python_startvar="python3"
+version = 0.1
 
 def get_errors(filename):
     """
@@ -106,11 +107,31 @@ def colorize_error_with_syntax(code):
     return highlight(code, PythonLexer(), TerminalFormatter()).strip()
 
 def underline_error(error):
+    """
+    Reads the last line of the error file and strips it of any newline characters.
+    
+    input:
+        error (list): A list of tuples containing (line number, code, error description)
+    
+    output:
+        str: The last line of the error file, stripped of any newline characters
+    """
     with open(readfile, "r") as file:
         lines = file.readlines()
         return (lines[-2].rstrip())
 
 def display_error_stack(errors, filename, underline):
+    """
+    Displays the error stack of a given Python file with line numbers, syntax highlighting, and error indicators.
+    
+    Args:
+        errors (list): A list of tuples containing (line number, code, error description)
+        filename (str): The name of the file to display
+        underline (str): The underline string from the error output file
+    
+    Returns:
+        None
+    """
     test = 2
     print(f"\033[47m\033[91m ERR! \033[0m\033[91m Error on Line \033[33m{errors[-1][0]}\033[91m Detected\033[0m\033[33m\033[0m\n\033[97m{errors[-1][-1]}\n")
     
@@ -196,6 +217,11 @@ def runtestcases(filename,testcasefile):
         
 
 def help_func():
+    """
+    Prints the help menu for pyrun.
+    
+    The help menu includes information about the usage of pyrun, valid arguments, and a brief description of each argument.
+    """
     print("""
 \033[94m    ____        \033[93m____            
 \033[94m   / __ \\__  __\033[93m/ __ \\__  ______ 
@@ -219,6 +245,12 @@ def help_func():
         --rt    Run Test Cases, Pipe The Outputs And Diff Testcases <WIP>
         --cb    Convert To Binary, (Compile)
           """)
+    
+def version_help():
+    """
+    Prints the version of pyrun
+    """
+    print(f"Pyrun Version \033[92m{version}\033[0m\nTo Run Update, Run \033[92m'pyrun --new'\033[0m")
 
 def main():
     if len(sys.argv) < 2:
@@ -227,6 +259,11 @@ def main():
 
     elif sys.argv[1] == "help":
         help_func()
+        exit()
+
+    elif sys.argv[1] == "--v":
+            version_help()
+            exit(0)
 
     # this runs the basic script of runnning a python file in standard
     elif sys.argv[1] not in allowed_args:
