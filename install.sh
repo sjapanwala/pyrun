@@ -20,7 +20,6 @@ if [ -e "$TARGET_PATH" ]; then
     fi
 fi
 
-# Checking for python installation
 if ! command -v python3 &> /dev/null; then
     echo -e "\033[31mPython3 is not installed.\033[0m"
     echo -e "\033[90mC'mon, didn't you read that Python was part of the app?\033[0m"
@@ -35,14 +34,11 @@ if ! command -v pip3 &> /dev/null; then
 fi
 
 package="pygments"
-# Use python to check if the package can be imported
 python3 -c "import $package" 2>/dev/null
 
-# Check if the command was successful
 if [ $? -eq 0 ]; then
     echo -e "Welcome To Pyrun Installer, Please Read Through The Installation Process\n\n1. Download The App\n2. Add It To /usr/local/bin/py (this will make it usable)\n3. Install Dependencies\n4. Done!\n\033[90mSudo Access Is Required\033[0m\n"
     read -p "Do you want to continue? (y/n): " answer
-    # Checking the user's input
     if ! [[ "$answer" =~ ^[Yy]$ ]]; then
         echo -e "\033[91mInstallation Aborted\033[0m"
         exit 1
@@ -85,7 +81,6 @@ else
             exit 1
         fi
     fi
-    # Add more dependencies here
     echo -e "\033[32m$counter Dependencies Installed\033[0m"
 fi
 # cleanup

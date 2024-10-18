@@ -14,8 +14,17 @@ from pygments.formatters import TerminalFormatter
 allowed_files = [".py"]
 readfile = ".pyout"
 allowed_args = ["help","--ns", "--v","--new","--del"]
-python_startvar="python3"
 version = 0.1
+
+# this little thing check if your system is runnng python3 or python
+if sys.version_info[0] == 3:
+    python_startvar="python3"
+else:
+    python_startvar="python"
+
+#uncomment this to force a python version
+# python_startvar="python3"  
+
 
 def get_errors(filename):
     """
