@@ -43,7 +43,11 @@ Key Features:
 curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/install.sh && bash install.sh
 ```
 ## Usage
-Using Pyrun is super simple, instead of typing python, or python3 everytime you go to run your python file
+Using Pyrun is super simple, instead of typing python, or python3 everytime you go to run your python file.
+
+Simply Run This Command
+```zsh
+```
 
 
 
