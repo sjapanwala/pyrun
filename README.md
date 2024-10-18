@@ -9,6 +9,8 @@
 <img src="https://img.shields.io/badge/Version-0.1 BETA-red">
 </p>
 
+<img width="988" alt="Screenshot 2024-10-18 at 4 16 15 PM" src="https://github.com/user-attachments/assets/17ee6d8b-3e1d-4d64-927f-7073e0793dc4">
+
 <img align="center" src="https://github.com/user-attachments/assets/dbcf13f1-66a8-4d3c-b55f-fe48f96181d7">
 
 > Left Pyrun, Right Standard Python Interpreter
