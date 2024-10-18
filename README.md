@@ -63,7 +63,7 @@ $ filename.py
 ```
 Since we have an obvious mathematical error of dividing by 0, we receive an output like this...
 
-<img align="center" width="821" alt="output" src="https://github.com/user-attachments/assets/bce5d2a8-43fe-4857-8ca6-6a79d33e12ec">
+<img align="center" width="500" alt="output" src="https://github.com/user-attachments/assets/bce5d2a8-43fe-4857-8ca6-6a79d33e12ec">
 
 > this shows us exaclty where the error takes place, there is an error in the function `diviede` because in the function `divide` you are dividing by zero, as shown by the red underline
 
@@ -76,20 +76,21 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
 ### Some FAQ 🙋
 **if you have a question not listed here, please open an** ***Issue*** **, and we will resolve it ASAP**
 
-- **Does it Affect Pythons Runtime?**
-  - That was a common concerns amongs the developers aswell, we tested that theory with multiple sorting algorithms and logged how long it took, running 100 tests on each algorithms, with the same arrays, keeping all the factors the same. We saw that there was no drastic difference, if anything, Pyrun was running faster. This result also depends on the specs of your machinery.
-  <img width="400" alt="Screenshot 2024-10-18 at 4 16 15 PM" src="https://github.com/user-attachments/assets/17ee6d8b-3e1d-4d64-927f-7073e0793dc4">
+### **Does it Affect Pythons Runtime?**
+  <img width="658" alt="Screenshot 2024-10-18 at 4 16 15 PM" src="https://github.com/user-attachments/assets/17ee6d8b-3e1d-4d64-927f-7073e0793dc4">
   
   > this is the table we ended with from out tests.
--  **What if I have an alias, or another program running the 'py' prefix?**
+  - That was a common concerns amongs the developers aswell, we tested that theory with multiple sorting algorithms and logged how long it took, running 100 tests on each algorithms, with the same arrays, keeping all the factors the same. We saw that there was no drastic difference, if anything, Pyrun was running faster. This result also depends on the specs of your machinery.
+  
+###  **What if I have an alias, or another program running the 'py' prefix?**
     - If you would like to change the prefix, you would have to alter the `install.sh` file.
     1. Run the install command, but abort it with `ctrl + c`.
     2. Using a text editior of your choice, change the `$TARGET_PATH` change the `py` to the prefix of your choice.
     > Keep in mind: since the prefix is changes, every command you run, `py` will need to be substituted with the prefix of your choice 
 
-- **What Customization Opportunities Does It Have?**
+### **What Customization Opportunities Does It Have?**
   - Customization is very limited to none, since this program is targeted towards new learners.
   - Plans for customization my be coming very soon!
 
-- **Where Do I Update**
+### **Where Do I Update**
   - You can update straight from the program by running `sudo py --new`
