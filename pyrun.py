@@ -13,7 +13,7 @@ from pygments.formatters import TerminalFormatter
 # global vars
 allowed_files = [".py"]
 readfile = ".pyout"
-allowed_args = ["help","--ns","--ds","--rt","--cb", "--v"]
+allowed_args = ["help","--ns", "--v","--new","--del"]
 python_startvar="python3"
 version = 0.1
 
@@ -239,11 +239,13 @@ def help_func():
         Arguement: Add a listed arg, to run script in a special mode
           
     \033[97mValid Arguements:\033[0m
-        help    Launches Help Menu
-        --ns    Normal Start, Is Default Already
-        --ds    Describe File Contents (File Stats, Time Complexities) <WIP>
-        --rt    Run Test Cases, Pipe The Outputs And Diff Testcases <WIP>
-        --cb    Convert To Binary, (Compile)
+        ✓ help    Launches Help Menu
+        ✓ --ns    Normal Start, Is Default Already
+        ✓ --v     Check Version
+        ✓ --new   Update App
+        ✓ --del   Delete App
+        ⨯ --ds    Describe File Contents (File Stats, Time Complexities) <WIP>
+        ⨯ --rt    Run Test Cases, Pipe The Outputs And Diff Testcases <WIP>
           """)
     
 def version_help():
@@ -270,6 +272,23 @@ def update_script():
         except subprocess.CalledProcessError as e:
             print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[31mFailed To Update {e}\033[0m.')
             sys.exit(1)
+def delete_script():
+    """
+    Deletes the script
+    """
+    if os.geteuid() != 0:  # Check if the effective user ID is 0 (root)
+        print('\033[4m\033[94mpy\033[93mrun\033[0m: This Action Requires Sudo Access, Please run \033[32m"sudo py --del"\033[0m.')
+        sys.exit(1)
+    else:
+        try:
+            result = subprocess.run(
+                ["sudo", "rm", "/usr/local/bin/py"],
+                check=True
+            )
+            print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[37mWe Are Sad To See You Go :(. \nIf Theres Something We Can Make Right Please Let Us Know!\033[0m\n\033[92mDeleted Successfully\033[0m')
+        except subprocess.CalledProcessError as e:
+            print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[31mFailed To Delete {e}\033[0m.')
+            sys.exit(1)
 
 def main():
     if len(sys.argv) < 2:
@@ -286,6 +305,10 @@ def main():
 
     elif sys.argv[1] == "--new":
             update_script()
+            exit(0)
+
+    elif sys.argv[1] == "--del":
+            delete_script()
             exit(0)
 
     # this runs the basic script of runnning a python file in standard
