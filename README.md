@@ -1,5 +1,5 @@
 # Pyrun
-> A Python addon that makes the interpreter experienct better
+> A Python addon that makes the interpreter experience better
 
 ## [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me)
 <p>
