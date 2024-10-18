@@ -1,1 +1,4 @@
-hello world!
+Added Updating!
+Added Install Script!
+Creating Support For Windows Soon!
+Adding Testcase Support Soon!

@@ -265,12 +265,12 @@ def update_script():
                 ["sudo", "curl", "-s", "-o", "/usr/local/bin/py", "https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/pyrun.py"],
                 check=True
             )
-            print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[32mUpdated Successfully\033[0m.')
-            os.system("curl -s links")
+            print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[32mUpdated Successfully\033[0m.\nUpdates:')
+            os.system("curl -s https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/updates.txt")
         except subprocess.CalledProcessError as e:
             print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[31mFailed To Update {e}\033[0m.')
             sys.exit(1)
-            
+
 def main():
     if len(sys.argv) < 2:
         print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mNo Arguement Given\033[0m\nPlease provide a \033[4mFilename\033[0m or an \033[4mArgument\033[0m.')
