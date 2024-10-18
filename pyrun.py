@@ -250,8 +250,27 @@ def version_help():
     """
     Prints the version of pyrun
     """
-    print(f"Pyrun Version \033[92m{version}\033[0m\nTo Run Update, Run \033[92m'pyrun --new'\033[0m")
+    print(f"Pyrun Version \033[92m{version}\033[0m\nTo Run Update, Run \033[92m'sudo py --new'\033[0m")
 
+def update_script():
+    """
+    Updates the script to the latest version
+    """
+    if os.geteuid() != 0:  # Check if the effective user ID is 0 (root)
+        print('\033[4m\033[94mpy\033[93mrun\033[0m: This Action Requires Sudo Access, Please run \033[32m"sudo py --new"\033[0m.')
+        sys.exit(1)
+    else:
+        try:
+            result = subprocess.run(
+                ["sudo", "curl", "-s", "-o", "/usr/local/bin/py", "https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/pyrun.py"],
+                check=True
+            )
+            print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[32mUpdated Successfully\033[0m.')
+            os.system("curl -s links")
+        except subprocess.CalledProcessError as e:
+            print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[31mFailed To Update {e}\033[0m.')
+            sys.exit(1)
+            
 def main():
     if len(sys.argv) < 2:
         print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mNo Arguement Given\033[0m\nPlease provide a \033[4mFilename\033[0m or an \033[4mArgument\033[0m.')
@@ -263,6 +282,10 @@ def main():
 
     elif sys.argv[1] == "--v":
             version_help()
+            exit(0)
+
+    elif sys.argv[1] == "--new":
+            update_script()
             exit(0)
 
     # this runs the basic script of runnning a python file in standard
