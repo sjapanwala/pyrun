@@ -1,7 +1,7 @@
 # Pyrun
 > A Python addon that makes the interpreter experienct better
 
-# <center> [Welcome](#what-is-pyrun) | [Installation](#installation) |  [Documentation](#documentation) | [Help](#help-me)
+# <center> [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me)
 <p align="center">
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
@@ -27,7 +27,31 @@ Key Features:
 - Customizable Command-Line Options: PyRun supports various arguments to tailor its functionality, making it adaptable to different development workflows.
 
 ## Installation
+### Some Prerequisites 🚀
+- **Python**: Version 3.6 or higher
+  - You can install Python from [python.org](https://www.python.org/downloads/).
+- **pip**: Python package manager (included with Python installation)
+  - Check if pip is installed by running:
+  ```pip3 --version```
+- **Dependencies**: This project requires the following Python libraries:
+  - `pygments` (install script will prompt installation)
 
-## Documentation
+### Installation ⬇
+> NOTE: for deletion, you have to run this command again or run 'sudo py --del'
+
+```sh
+curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/install.sh && bash install.sh
+```
+## Usage
+Using Pyrun is super simple, instead of typing python, or python3 everytime you go to run your python file
+
+
 
 ## Help Me
+### Some FAQ 🙋
+**if you have a question not listed here, please open an** ***Issue*** **, and we will resolve it ASAP**
+-  **What if I have an alias, or another program running the 'py' prefix?**
+    - If you would like to change the prefix, you would have to alter the `install.sh` file.
+    1. Run the install command, but abort it with `ctrl + c`.
+    2. Using a text editior of your choice, change the `$TARGET_PATH` change the `py` to the prefix of your choice.
+    > Keep in mind: since the prefix is changes, every command you run, `py` will need to be substituted with the prefix of your choice 

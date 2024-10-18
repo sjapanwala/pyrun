@@ -26,8 +26,9 @@ def get_errors(filename):
     output:
         status (bool) -> returns a boolean value, returns true if error is caught
     """
+    script_args = sys.argv[2:]  # Everything after the filename
     result = subprocess.run(
-        [python_startvar, filename],
+        [python_startvar, filename] + script_args,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True
@@ -258,7 +259,7 @@ def update_script():
     """
     Updates the script to the latest version
     """
-    if os.geteuid() != 0:  # Check if the effective user ID is 0 (root)
+    if os.geteuid() != 0:
         print('\033[4m\033[94mpy\033[93mrun\033[0m: This Action Requires Sudo Access, Please run \033[32m"sudo py --new"\033[0m.')
         sys.exit(1)
     else:
@@ -276,7 +277,7 @@ def delete_script():
     """
     Deletes the script
     """
-    if os.geteuid() != 0:  # Check if the effective user ID is 0 (root)
+    if os.geteuid() != 0:
         print('\033[4m\033[94mpy\033[93mrun\033[0m: This Action Requires Sudo Access, Please run \033[32m"sudo py --del"\033[0m.')
         sys.exit(1)
     else:
@@ -314,16 +315,16 @@ def main():
     # this runs the basic script of runnning a python file in standard
     elif sys.argv[1] not in allowed_args:
         file_to_run = sys.argv[1]
-        print("\033[90mNo File Arg Detected, Staring In Normal Mode\033[0m\n")
-        # checks to see if the path exists
+        #print("\033[90mNo File Arg Detected, Staring In Normal Mode\033[0m")
         if os.path.exists(file_to_run):
             if file_to_run[file_to_run.rfind("."):] not in allowed_files:
-                # checks to see if the file is an actual python file
                 print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mFile Doesnt Qualify\033[0m\nThe file \033[4m"{file_to_run}"\033[0m is not a standard Python File\033[0m.')
                 exit(1)
             if get_errors(file_to_run) == False:
-                print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[97m<-- {file_to_run} -- >\033[0m\n')
-                os.system(f"{python_startvar} {file_to_run}")
+                print(f'\033[4m\033[94mpy\033[93mrun\033[0m:\033[92m No Errors Found! \n\033[90m<-- STDOUT -->\033[0m\n')
+                #print(f'\033[4m\033[94mpy\033[93mrun\033[0m:\033[92m\033[0m Running {file_to_run}\n')
+                additional_args = ' '.join(sys.argv[2:])
+                os.system(f"{python_startvar} {file_to_run} {additional_args}")
                 exit(0)
             else:
                 errors = read_errors(sys.argv[1])

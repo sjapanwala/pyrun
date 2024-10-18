@@ -1,10 +1,5 @@
 Traceback (most recent call last):
-  File "/Users/saaim/Code/pyrun/testfile.py", line 23, in <module>
-    main()
-  File "/Users/saaim/Code/pyrun/testfile.py", line 20, in main
-    print("New average:", calculate_average(new_data))  # Error: TypeError
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/saaim/Code/pyrun/testfile.py", line 5, in calculate_average
-    avg = total / len(numbers)  # Error 2: Division by zero if numbers is empty
-          ~~~~~~^~~~~~~~~~~~~~
-ZeroDivisionError: division by zero
+  File "/Users/saaim/Code/pyrun/testfile.py", line 2, in <module>
+    if sys.argv[1] == 'hi':
+       ~~~~~~~~^^^
+IndexError: list index out of range
