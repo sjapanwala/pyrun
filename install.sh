@@ -88,5 +88,6 @@ else
     # Add more dependencies here
     echo -e "\033[32m$counter Dependencies Installed\033[0m"
 fi
-
+# cleanup
 echo -e "\033[35mScript Finished\033[0m"
+sudo rm install.sh
