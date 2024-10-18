@@ -1,5 +1,2 @@
-# Ignore all .pyout files
 .pyout
-
-# Ignore specific test file
 testfile.py
