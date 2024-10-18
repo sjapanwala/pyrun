@@ -74,6 +74,9 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
 *some questions can by answered by running `py help`, try that before opening an issue...*
 ### Some FAQ 🙋
 **if you have a question not listed here, please open an** ***Issue*** **, and we will resolve it ASAP**
+
+- **Does it Affect Pythons Runtime?**
+  - That was a common concerns amongs the developers aswell, we tested that theory with multiple sorting algorithms and logged how long it took, running 100 tests on each algorithms, with the same arrays, keeping all the factors the same. We saw that there was no drastic difference, if anything, Pyrun was running faster. This result also depends on the specs of your machinery.
 -  **What if I have an alias, or another program running the 'py' prefix?**
     - If you would like to change the prefix, you would have to alter the `install.sh` file.
     1. Run the install command, but abort it with `ctrl + c`.
