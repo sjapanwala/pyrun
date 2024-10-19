@@ -1,7 +1,8 @@
 # Pyrun
 > A Python addon that makes the interpreter experience better
 
-## [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me)
+# [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me)
+## [Common Issues](#known-issues)
 <p>
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
@@ -94,3 +95,18 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
 
 ### **Where Do I Update**
   - You can update straight from the program by running `sudo py --new`
+
+## Known Issues
+
+### **Deletion / Update if Changing Program Name**
+ - An issue found is, when you need to delete or update the program, since the name was changed, the path is not recognized anymore.
+
+ - We understand this isnt a good solution. as we work around this, this is the only way
+ > Easy Fix
+ ```sh
+  # to delete the program, run
+  $ sudo rm /usr/local/bin/<thenameyougave>
+
+  # to update, you may just need to reinstall the program
+  $ curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/install.sh && bash install.sh
+ ```
