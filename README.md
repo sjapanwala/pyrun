@@ -41,7 +41,7 @@ Key Features:
 > NOTE: for deletion, you have to run this command again or run 'sudo py --del'
 
 ```sh
-curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/install.sh && bash install.sh
+curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/unix/install.sh && bash install.sh
 ```
 
 #### For Windows Systems
