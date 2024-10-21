@@ -376,7 +376,14 @@ def main():
             delete_script()
             exit(0)
     elif sys.argv[1] == "--rt":
-        runtestcases(sys.argv[2],sys.argv[3])
+        if get_errors(sys.argv[2]) == False:
+            runtestcases(sys.argv[2],sys.argv[3])
+        else:
+            errors = read_errors(sys.argv[2])
+            underline = underline_error(errors)
+            display_error_stack(errors,sys.argv[2],underline)
+            exit(1)
+
 
 
     # this runs the basic script of runnning a python file in standard
