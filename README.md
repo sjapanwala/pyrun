@@ -1,8 +1,9 @@
 # Pyrun
 > A Python addon that makes the interpreter experience better
 
-# [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me)
-## [Common Issues](#known-issues)
+# [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me) | [Common Issues](#known-issues) 
+## DocuPages
+### [How To Use Testcases](#testcase-usage) | [Setting Up Configs](#config-file)
 <p>
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
@@ -90,11 +91,13 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
     > Keep in mind: since the prefix is changes, every command you run, `py` will need to be substituted with the prefix of your choice 
 
 ### **What Customization Opportunities Does It Have?**
-  - Customization is very limited to none, since this program is targeted towards new learners.
-  - Plans for customization my be coming very soon!
+  - Please Visit The [Config Docupages](https://www.google.com) For More Information
 
 ### **Where Do I Update**
   - You can update straight from the program by running `sudo py --new`
+
+# Sub Documentation
+> For Information Needed After Download
 
 ## Known Issues
 

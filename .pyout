@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/saaim/Code/pyrun/testfile.py", line 2, in <module>
-    if sys.argv[1] == 'hi':
-       ~~~~~~~~^^^
-IndexError: list index out of range

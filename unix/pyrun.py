@@ -5,6 +5,7 @@ from os import sys
 import os
 import subprocess
 import time
+import json
 import re
 from pygments import highlight
 from pygments.lexers import PythonLexer
@@ -15,17 +16,41 @@ allowed_files = [".py"]
 readfile = ".pyout"
 allowed_args = ["help","--ns", "--v","--new","--del"]
 version = 0.1
-
+config_path = "~/.config/pyrun/pyrun.json"
 # this little thing check if your system is runnng python3 or python
 if sys.version_info[0] == 3:
     python_startvar="python3"
 else:
     python_startvar="python"
-
 #uncomment this to force a python version
 # python_startvar="python3"  
 
-
+def get_config(config_path,arg):
+    config_path = os.path.expanduser(config_path)
+    """
+    This function reads the config file and updates the global variables"""
+    try:
+        with open(config_path, "r") as file:
+            config = json.load(file)
+    except FileNotFoundError:
+        config = {
+            "ColoredSyntax":True,
+            "STDOUT":True,
+            "StartScript": True
+        }
+    global startscript
+    startscript = config["StartScript"]
+    global colored_syntax
+    colored_syntax = config["ColoredSyntax"]
+    global stdout
+    stdout = config["STDOUT"]
+    if arg == "printconfig":
+        print(config)
+        exit(0)
+    elif arg == "verifyconfig":
+        if stdout != True or False:
+            print("Config Error: STDOUT must be True or False")
+            exit(1)
 def get_errors(filename):
     """
     This function runs the python file chosen, and creates a intermediate text script that store the errors that the script has, only creates the file if errors exist, else no files created. the file is deleted afterwards
@@ -114,7 +139,10 @@ def colorize_error_with_syntax(code):
     Returns:
         tuple: A tuple with the line number, syntax-highlighted code, and description
     """
-    return highlight(code, PythonLexer(), TerminalFormatter()).strip()
+    if colored_syntax:
+        return highlight(code, PythonLexer(), TerminalFormatter()).strip()
+    else:
+        return code
 
 def underline_error(error):
     """
@@ -172,19 +200,28 @@ def display_error_stack(errors, filename, underline):
             post_line = min(len(lines) - 1, error_line_num + 1)
 
             # Display previous line if it exists
-            pre_line_space = len(lines[pre_line]) - len(lines[pre_line].lstrip())
+            if colored_syntax:
+                pre_line_space = len(lines[pre_line]) - len(lines[pre_line].lstrip())
+            else:
+                pre_line_space = 0
             if pre_line < curr_line:
                 print(f'    \033[90m{format_line_number(pre_line + 1)}\033[0m | {((" ") * (pre_line_space) )}{colorize_error_with_syntax(lines[pre_line])}')
 
-            # Display current line with error indicator
-            curr_line_space = len(lines[curr_line]) - len(lines[curr_line].lstrip())
+            # Display current line with error indicator\
+            if colored_syntax:
+                curr_line_space = len(lines[curr_line]) - len(lines[curr_line].lstrip())
+            else:
+                curr_line_space = 0
             print(f'\033[91m->  {format_line_number(curr_line + 1)} | \033[0m{((" ") * (curr_line_space) )}{colorize_error_with_syntax(lines[curr_line])}')
             if underline and test < 1:
                 #if test < 1:
                     underline_position = len(f'{format_line_number(curr_line + 1)} | ') + curr_line_space  # Adjust for line number and space
                     print(f'\033[91m{" " * underline_position}\033[91m{underline}')
             # Display next line if it exists
-            post_line_space = len(lines[post_line]) - len(lines[post_line].lstrip())
+            if colored_syntax:
+                post_line_space = len(lines[post_line]) - len(lines[post_line].lstrip())
+            else:
+                post_line_space = 0
             if post_line > curr_line:
                 print(f'    \033[90m{format_line_number(post_line + 1)}\033[0m | {((" ") * (post_line_space) )}{colorize_error_with_syntax(lines[post_line])}')
             #print(f"    {(len(str((post_line)))+1)*"-"}|")
@@ -193,33 +230,50 @@ def display_error_stack(errors, filename, underline):
             print(f"Error processing the error stack: {e}")
 
 def runtestcases(filename,testcasefile):
-    """
-    runs test cases, test cases should be added to a text file
-    caselist[i][0] = case num
-    caselist[i][1] = case input
-    caselist[i][2] = case output
-    """
-    caselist = []
-    casenums = 0
-    inputs = []
-    outputs = []
-    with open(testcasefile, "r") as testcases:
-        for lines in testcases:
-            lines = lines.strip()
-            if lines == '***CASE START***':
-                casenums += 1
-            if lines[0:5] == 'INPUT':
-                for i in lines[8:]:
-                    if i.isalnum() == True:
-                        inputs.append(i)
-            if lines[0:6] == 'OUTPUT':
-                for j in lines[9:]:
-                    if j.isalnum() == True:
-                        outputs.append(j)
-        caselist = [casenums, inputs, outputs]
-        print(caselist)
-        return caselist
+    if os.path.exists("feedback.txt") == True:
+        os.system("rm feedback.txt")
+    with open(testcasefile, 'r') as f:
+        lines = f.readlines()
 
+    if len(lines) % 2 != 0:
+        print("Error: Test case file should have an even number of lines (input-output pairs).")
+        return
+    test_case_validity = True
+    cases_failed = 0
+    for i in range(0, len(lines), 2):
+        starttime = time.time()
+        input_data = lines[i].strip()
+        expected_output = lines[i + 1].strip()
+
+        process = subprocess.Popen(
+            ['python3', filename],  
+            stdin=subprocess.PIPE,  
+            stdout=subprocess.PIPE,  
+            stderr=subprocess.PIPE,  
+            text=True 
+        )
+        endtime = time.time()
+
+        output, error = process.communicate(input_data)
+
+        if error:
+            print(f"Error in test {i//2 + 1}: {error.strip()}")
+            continue
+
+        if output.strip() == expected_output:
+            print(f"\033[92m✔\033[0m | TestCase {i//2 + 1}: \033[92mPassed\033[0m \033[90m({endtime - starttime:.5f}s)\033[0m")
+            test_case_validity = True
+        else:
+            print(f"\033[91m✘\033[0m | TestCase {i//2 + 1}: \033[91mFailed\033[0m")
+            test_case_validity = False
+            cases_failed += 1
+            feedback = f"--- CASE {i//2 + 1}--- \n {input_data}\nExpected Output: {expected_output}\nActual Output: {output.strip()}\n--- END OF CASE ---\n"
+            with open('feedback.txt', "a") as testcase_result:
+                testcase_result.write(feedback)
+    if test_case_validity:
+        print("\n\033[92m✔\033[0m All Cases Passed.")
+    else:
+        print(f"\n\033[91m✘\033[0m {cases_failed} Test Cases Failed.\nFeedback Provided Under '\033[92mfeedback.txt\033[0m'")   
 
 
         
@@ -278,7 +332,7 @@ def update_script():
                 check=True
             )
             print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[32mUpdated Successfully\033[0m.\nUpdates:')
-            os.system("curl -s https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/updates.txt")
+            #os.system("curl -s addupdatelink")
         except subprocess.CalledProcessError as e:
             print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[31mFailed To Update {e}\033[0m.')
             sys.exit(1)
@@ -301,10 +355,10 @@ def delete_script():
             sys.exit(1)
 
 def main():
+    get_config(config_path,None)
     if len(sys.argv) < 2:
         print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mNo Arguement Given\033[0m\nPlease provide a \033[4mFilename\033[0m or an \033[4mArgument\033[0m.')
         exit(1)
-
     elif sys.argv[1] == "help":
         help_func()
         exit()
@@ -320,6 +374,9 @@ def main():
     elif sys.argv[1] == "--del":
             delete_script()
             exit(0)
+    elif sys.argv[1] == "--rt":
+        runtestcases(sys.argv[2],sys.argv[3])
+
 
     # this runs the basic script of runnning a python file in standard
     elif sys.argv[1] not in allowed_args:
@@ -330,11 +387,13 @@ def main():
                 print(f'\033[4m\033[94mpy\033[93mrun\033[0m: \033[91mFile Doesnt Qualify\033[0m\nThe file \033[4m"{file_to_run}"\033[0m is not a standard Python File\033[0m.')
                 exit(1)
             if get_errors(file_to_run) == False:
-                print(f'\033[4m\033[94mpy\033[93mrun\033[0m:\033[92m No Errors Found! \n\033[90m<-- STDOUT -->\033[0m\n')
-                #print(f'\033[4m\033[94mpy\033[93mrun\033[0m:\033[92m\033[0m Running {file_to_run}\n')
-                additional_args = ' '.join(sys.argv[2:])
-                os.system(f"{python_startvar} {file_to_run} {additional_args}")
-                exit(0)
+                if startscript:
+                    if stdout:
+                        print(f'\033[4m\033[94mpy\033[93mrun\033[0m:\033[92m No Errors Found! \n\033[90m<-- STDOUT -->\033[0m\n')
+                    #print(f'\033[4m\033[94mpy\033[93mrun\033[0m:\033[92m\033[0m Running {file_to_run}\n')
+                    additional_args = ' '.join(sys.argv[2:])
+                    os.system(f"{python_startvar} {file_to_run} {additional_args}")
+                    exit(0)
             else:
                 errors = read_errors(sys.argv[1])
                 #print(errors)
