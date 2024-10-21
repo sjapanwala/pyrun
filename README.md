@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
 <img src="https://img.shields.io/badge/python3-yellow">
-<img src="https://img.shields.io/badge/Version-0.1 BETA-red">
+<img src="https://img.shields.io/badge/Version-0.2-red">
 </p>
 
 
@@ -91,7 +91,7 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
     > Keep in mind: since the prefix is changes, every command you run, `py` will need to be substituted with the prefix of your choice 
 
 ### **What Customization Opportunities Does It Have?**
-  - Please Visit The [Config Docupages](https://www.google.com) For More Information
+  - Please Visit The [Config Docupages](https://github.com/sjapanwala/pyrun/blob/main/docupages/config.md) For More Information
 
 ### **Where Do I Update**
   - You can update straight from the program by running `sudo py --new`
@@ -111,5 +111,5 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
   $ sudo rm /usr/local/bin/<thenameyougave>
 
   # to update, you may just need to reinstall the program
-  $ curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/install.sh && bash install.sh
+  $ curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/unix/install.sh && bash install.sh
  ```
