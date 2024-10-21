@@ -303,13 +303,14 @@ def help_func():
         Arguement: Add a listed arg, to run script in a special mode
           
     \033[97mValid Arguements:\033[0m
-        ✓ help    Launches Help Menu
-        ✓ --ns    Normal Start, Is Default Already
-        ✓ --v     Check Version
-        ✓ --new   Update App
-        ✓ --del   Delete App
-        ⨯ --ds    Describe File Contents (File Stats, Time Complexities) <WIP>
-        ⨯ --rt    Run Test Cases, Pipe The Outputs And Diff Testcases <WIP>
+         help    Launches Help Menu
+         --ns    Normal Start, Is Default Already
+         --v     Check Version
+         --new   Update App
+         --del   Delete App
+         --rt    Run Test Cases, Pipe The Outputs And Diff Testcases
+         --new   Update Application (sudo access required)
+         --del   Delete Application (sudo access required)
           """)
     
 def version_help():
