@@ -88,7 +88,6 @@ Since we have an obvious mathematical error of dividing by 0, we receive an outp
 - If you would like to change the prefix, you would have to alter the `install.sh` file.
     1. Run the install command, but abort it with `ctrl + c`.
     2. Using a text editior of your choice, change the `$TARGET_PATH` change the `py` to the prefix of your choice.
-    > [!IMPORTANT] 
     > Keep in mind: since the prefix is changes, every command you run, `py` will need to be substituted with the prefix of your choice 
 
 ### **What Customization Opportunities Does It Have?**
