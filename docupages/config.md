@@ -1,9 +1,13 @@
 # Configurations
 > Released Oct 21, 2024
+## [Home](https://github.com/sjapanwala/pyrun) | [Recent Update](updates.md)
 ## Config File
 > this will providde a littl bit of customizability
 ### Creating The Config
 - the config file should be located under `~/.config/pyrun`, pyrun cannot detect any other locations, unless modified in the source code.
+
+### No Config Created
+- if a config is not created, the application will continue to run, but run off a preset config.
 
 ### Structuring The Config
 ```json

@@ -15,7 +15,7 @@ from pygments.formatters import TerminalFormatter
 allowed_files = [".py"]
 readfile = ".pyout"
 allowed_args = ["help","--ns", "--v","--new","--del"]
-version = 0.1
+version = 0.2
 config_path = "~/.config/pyrun/pyrun.json"
 # this little thing check if your system is runnng python3 or python
 if sys.version_info[0] == 3:

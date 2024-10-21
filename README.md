@@ -3,7 +3,7 @@
 
 # [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me) | [Common Issues](#known-issues) 
 ## DocuPages
-### [How To Use Testcases](#testcase-usage) | [Setting Up Configs](#config-file)
+### [Updates](https://github.com/sjapanwala/pyrun/blob/main/docupages/updates.md)
 <p>
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
