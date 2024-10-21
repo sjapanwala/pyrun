@@ -1,6 +1,6 @@
 #!/bin/bash
 TARGET_PATH="/usr/local/bin/py"
-PYTHON_SCRIPT_URL="https://github.com/sjapanwala/pyrun/blob/main/unix/pyrun.py"
+PYTHON_SCRIPT_URL="https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/unix/pyrun.py"
 
 if [ -e "$TARGET_PATH" ]; then
     echo -e "\033[91mPyrun is already installed.\033[0m"
