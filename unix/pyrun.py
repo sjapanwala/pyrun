@@ -329,7 +329,7 @@ def update_script():
     else:
         try:
             result = subprocess.run(
-                ["sudo", "curl", "-s", "-o", "/usr/local/bin/py", "https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/pyrun.py"],
+                ["sudo", "curl", "-s", "-o", "/usr/local/bin/py", "https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/unix/pyrun.py"],
                 check=True
             )
             print('\033[4m\033[94mpy\033[93mrun\033[0m: \033[32mUpdated Successfully\033[0m.\nUpdates:')
