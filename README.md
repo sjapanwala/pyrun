@@ -1,16 +1,14 @@
-# Pyrun
+# Pyrun 
 > A Python addon that makes the interpreter experience better
 
-# [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me) | [Common Issues](#known-issues) 
-## DocuPages
-### [Updates](https://github.com/sjapanwala/pyrun/blob/main/docupages/updates.md)
+
+# [Welcome](#what-is-pyrun) | [Installation](#installation) | [Usage](#usage) | [Help](#help-me) | [Common Issues](#known-issues) | [Website](https://sjapanwala.github.io/pyrun/)
 <p>
 <img src="https://img.shields.io/badge/Active_Development-green">
 <img src="https://img.shields.io/badge/Tested-Unix-white">
 <img src="https://img.shields.io/badge/python3-yellow">
 <img src="https://img.shields.io/badge/Version-0.2-red">
 </p>
-
 
 <img align="center" src="https://github.com/user-attachments/assets/dbcf13f1-66a8-4d3c-b55f-fe48f96181d7">
 
