@@ -43,7 +43,10 @@ curl -s -o install.sh https://raw.githubusercontent.com/sjapanwala/pyrun/refs/he
 ```
 
 #### For Windows Systems
-> NOTE: Windows Systems Are Currently Being Tested, and will be released very soon!
+> NOTE: Windows isnt the primary focus. As many functions may work, its not promised it will be a seamless experience without bugs and issues
+```ps1
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sjapanwala/pyrun/refs/heads/main/windows/install.cmd" -OutFile "install.cmd"; .\install.cmd
+```
 
 ## Usage
 Using Pyrun is super simple, instead of typing python, or python3 everytime you go to run your python file.
