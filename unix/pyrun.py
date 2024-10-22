@@ -230,50 +230,69 @@ def display_error_stack(errors, filename, underline):
             print(f"Error processing the error stack: {e}")
 
 def runtestcases(filename,testcasefile):
-    if os.path.exists("feedback.txt") == True:
-        os.system("rm feedback.txt")
-    with open(testcasefile, 'r') as f:
-        lines = f.readlines()
-
-    if len(lines) % 2 != 0:
-        print("Error: Test case file should have an even number of lines (input-output pairs).")
-        return
-    test_case_validity = True
-    cases_failed = 0
-    for i in range(0, len(lines), 2):
-        starttime = time.time()
-        input_data = lines[i].strip()
-        expected_output = lines[i + 1].strip()
-
-        process = subprocess.Popen(
-            ['python3', filename],  
-            stdin=subprocess.PIPE,  
-            stdout=subprocess.PIPE,  
-            stderr=subprocess.PIPE,  
-            text=True 
-        )
-        endtime = time.time()
-
-        output, error = process.communicate(input_data)
-
-        if error:
-            print(f"Error in test {i//2 + 1}: {error.strip()}")
-            continue
-
-        if output.strip() == expected_output:
-            print(f"\033[92m✔\033[0m | TestCase {i//2 + 1}: \033[92mPassed\033[0m \033[90m({endtime - starttime:.5f}s)\033[0m")
-            test_case_validity = True
-        else:
-            print(f"\033[91m✘\033[0m | TestCase {i//2 + 1}: \033[91mFailed\033[0m")
-            test_case_validity = False
-            cases_failed += 1
-            feedback = f"--- CASE {i//2 + 1}--- \n {input_data}\nExpected Output: {expected_output}\nActual Output: {output.strip()}\n--- END OF CASE ---\n"
-            with open('feedback.txt', "a") as testcase_result:
-                testcase_result.write(feedback)
-    if test_case_validity:
-        print("\n\033[92m✔\033[0m All Cases Passed.")
+    # first we need to check if the file will even run
+    print(f"\033[97mRunning {filename} With {testcasefile}\n\033[0m\033[3mPress Enter To Run\033[0m")
+    if get_errors(filename) ==  True:
+        errors = read_errors(filename)
+        underline = underline_error(errors)
+        display_error_stack(errors,filename,underline)
+        exit(1)
     else:
-        print(f"\n\033[91m✘\033[0m {cases_failed} Test Cases Failed.\nFeedback Provided Under '\033[92mfeedback.txt\033[0m'")   
+        if os.path.exists("feedback.txt") == True:
+            os.system("rm feedback.txt")
+        with open(testcasefile, 'r') as f:
+            lines = f.readlines()
+
+        if len(lines) % 2 != 0:
+            print("Format Error: Test case file should have even number of lines")
+            return
+        test_case_validity = True
+        cases_failed = 0
+        for i in range(0, len(lines), 2):
+            starttime = time.time()
+            input_data = lines[i].strip()
+            expected_output = lines[i + 1].strip()
+
+            process = subprocess.Popen(
+                [f'{python_startvar}', filename],  
+                stdin=subprocess.PIPE,  
+                stdout=subprocess.PIPE,  
+                stderr=subprocess.PIPE,  
+                text=True   
+            )
+
+            
+            endtime = time.time()
+
+            output, error = process.communicate(input_data)
+
+            if error:
+                print(f"Error in test {i//2 + 1}: {error.strip()}")
+                continue
+
+            if output.strip() == expected_output:
+                print(f"\033[92m✔\033[0m | TestCase {i//2 + 1}: \033[92mPassed\033[0m \033[90m({endtime - starttime:.5f}s)\033[0m")
+                feedback = f"--- CASE {i//2 + 1}--- \n {input_data}\nExpected Output: {expected_output}\nActual Output: {output.strip()}\n"
+                with open('feedback.txt', "a") as testcase_result:
+                    testcase_result.write(feedback)
+            else:
+                print(f"\033[91m✘\033[0m | TestCase {i//2 + 1}: \033[91mFailed\033[0m")
+                test_case_validity = False
+                cases_failed += 1
+                feedback = f"--- CASE {i//2 + 1}--- \n {input_data}\nExpected Output: {expected_output}\nActual Output: {output.strip()}\n"
+                with open('feedback.txt', "a") as testcase_result:
+                    testcase_result.write(feedback)
+        if test_case_validity:
+            print("\n\033[92m✔\033[0m All Cases Passed.")
+            passed_cases = (len(lines) // 2 - cases_failed)
+            percentage_passed = (passed_cases / (len(lines) // 2)) * 100
+            print(f"Passed Percentage: {percentage_passed:.2f}%\nFeedback Provided Under '\033[92mfeedback.txt\033[0m'")
+            with open('feedback.txt', "a") as testcase_result:
+                    testcase_result.write(f'\n\n --- SUMMARY ---\nPassed Cases: {passed_cases}\nFailed Cases: {cases_failed}\nPassed Percentage: {percentage_passed}')
+        else:
+            passed_cases = (len(lines) // 2 - cases_failed)
+            percentage_passed = (passed_cases / (len(lines) // 2)) * 100
+            print(f"\n\033[91m✘\033[0m {cases_failed} Test Cases Failed.\nPassed Percentage: {percentage_passed:.2f}%\nFeedback Provided Under '\033[92mfeedback.txt\033[0m'")
 
 
         
@@ -376,13 +395,7 @@ def main():
             delete_script()
             exit(0)
     elif sys.argv[1] == "--rt":
-        if get_errors(sys.argv[2]) == False:
-            runtestcases(sys.argv[2],sys.argv[3])
-        else:
-            errors = read_errors(sys.argv[2])
-            underline = underline_error(errors)
-            display_error_stack(errors,sys.argv[2],underline)
-            exit(1)
+        runtestcases(sys.argv[2],sys.argv[3])
 
 
 
