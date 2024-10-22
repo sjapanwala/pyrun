@@ -30,6 +30,18 @@ if __name__ == "__main__":
   main()
 ```
 
+### Taking In STDIN
+- Different inputs have different affects
+
+> Basic Input
+```py
+stdin = input()
+```
+> Taking Input As A List
+```py
+stdin = input.split()
+```
+
 ### Terminal Output
 - if a testcase is passed, you will be notified like this``` ✓ | Testcase (#case): Passed (timetaken seconds)```
 ```txt
